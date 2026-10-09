@@ -9,8 +9,8 @@ real mountains.
 
 | Milestone | Status | Notes |
 |---|---|---|
-| M1 — Project setup + GitHub Pages deploy (placeholder page) | 🟡 Awaiting phone test | Deployed 2026-10-09 |
-| M2 — Skyline rendering from the test location (no compass) | ⬜ Not started | |
+| M1 — Project setup + GitHub Pages deploy (placeholder page) | ✅ Done | Phone-tested 2026-10-09 |
+| M2 — Skyline rendering from the test location (no compass) | 🟡 Awaiting phone test | Deployed 2026-10-09 |
 | M3 — Peak labels with visibility checks | ⬜ Not started | |
 | M4 — GPS, compass mode, drag and offset correction | ⬜ Not started | |
 
@@ -85,6 +85,21 @@ Repository: https://github.com/nightskyfinder-app/peakfinder
 - Compass mode (iOS permission button, Android absolute orientation), smoothing
 - Drag to pan; manual heading-offset correction
 
+## Implementation notes (as built)
+
+- **Tile zoom by distance** (`src/config.ts` → `ZOOM_BANDS`): z12 to 5 km, z11 to 25 km,
+  z10 to 100 km, z9 to 200 km. About 96 tiles at 100 km and 168 at 200 km. Tiles are cached
+  in the worker's memory, so changing the range only downloads the new ones.
+- **Step size** grows with distance: `15 m + 0.4% × distance` (≈415 m at 100 km). Sweep starts 60 m out.
+- **Viewer height** = ground elevation at your spot (z12) + 2 m eye height.
+- **Ridge crests**: a point counts as a ridge when the ground behind it drops ≥0.05° below it.
+  Crests in neighboring rays are joined into lines if within 8% + 150 m in distance and 0.6° in angle.
+  Brightness fades in 6 steps with distance.
+- **Screen scale**: 1° across = 1° up (true shape) for views ≤90°. The 120°/360° views stretch heights.
+- **M2 navigation**: ◀ ▶ buttons turn by 15°. Drag to pan comes in M4.
+- Checked with synthetic volcano terrain (Rainier/Adams/St. Helens). Bearings and angles
+  matched hand calculations (Rainier 345.7° at ≈20° up, Adams 164° at ≈1.5° up).
+
 ## Out of scope (for now)
 
 Offline downloads, camera overlay, accounts, native app packaging. Code is kept
@@ -93,4 +108,5 @@ modular (data / terrain / render / sensors / ui folders) so these can be added l
 ## Change log
 
 - 2026-10-09 — Plan written; M1 started.
-- 2026-10-09 — M1 deployed to GitHub Pages (first Actions run succeeded). Waiting for phone test.
+- 2026-10-09 — M1 deployed to GitHub Pages (first Actions run succeeded).
+- 2026-10-09 — M1 confirmed on phone. M2 built (tiles, worker sweep, panorama, heading scale, loading, range setting) and deployed; waiting for phone test.

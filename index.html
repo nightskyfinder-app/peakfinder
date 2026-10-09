@@ -18,20 +18,47 @@
       <span id="version" class="version"></span>
     </header>
 
-    <!-- The panorama will be drawn on this canvas starting in M2 -->
+    <!-- Where you are and what the calculation used -->
+    <div id="location" class="location">—</div>
+
+    <!-- The panorama is drawn on this canvas -->
     <main class="stage">
       <canvas id="panorama" aria-label="Mountain skyline panorama"></canvas>
-      <div id="placeholder" class="placeholder">
-        <p class="big">Skyline coming in M2</p>
-        <p>If you can read this on your phone, the deploy works.</p>
+
+      <!-- Loading box, shown while tiles download and the skyline is calculated -->
+      <div id="loading" class="loading" hidden>
+        <p id="loading-text">Loading…</p>
+        <div class="progress"><div id="loading-bar"></div></div>
       </div>
     </main>
 
-    <!-- Quick checks: shows whether this phone/browser supports what we need -->
-    <section class="checks" aria-label="Device checks">
-      <h2>Device checks</h2>
+    <!-- Controls: turn left/right, zoom, and how far to look -->
+    <nav class="controls" aria-label="View controls">
+      <button id="turn-left" aria-label="Turn left">◀</button>
+      <span id="heading" class="heading">—</span>
+      <button id="turn-right" aria-label="Turn right">▶</button>
+
+      <label>View
+        <select id="fov">
+          <option value="30">30°</option>
+          <option value="60" selected>60°</option>
+          <option value="120">120°</option>
+          <option value="360">360°</option>
+        </select>
+      </label>
+
+      <label>Range
+        <select id="distance"></select>
+      </label>
+
+      <button id="test-location" class="wide">Paradise test</button>
+    </nav>
+
+    <!-- Quick checks: whether this phone/browser supports what the app needs -->
+    <details class="checks">
+      <summary>Device checks</summary>
       <ul id="checks"></ul>
-    </section>
+    </details>
 
     <!-- Data attribution — must always stay visible (filled by src/ui/attribution.ts) -->
     <footer id="attribution" class="attribution"></footer>
