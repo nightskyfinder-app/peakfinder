@@ -1,0 +1,50 @@
+# deploy.yml — builds the app and publishes it to GitHub Pages.
+# Runs automatically every time code is pushed to the "main" branch.
+# You can also run it by hand: GitHub repo → Actions tab → "Deploy to GitHub Pages" → Run workflow.
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Permissions GitHub Pages needs to publish the site.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# If two pushes happen quickly, finish one deploy before starting the next.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Install Vite and TypeScript, then type-check and build into the "dist" folder.
+      - run: npm install
+      - run: npm run build
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,86 @@
+/* style.css — page layout and colors. Dark theme: easier to read outdoors and saves battery. */
+
+:root {
+  --bg: #0f1720;        /* page background */
+  --panel: #18222d;     /* slightly lighter boxes */
+  --ink: #e8eef4;       /* main text */
+  --muted: #8a9aab;     /* secondary text */
+  --ok: #5cc98a;        /* green check */
+  --bad: #e7756b;       /* red cross */
+  --line: #2a3644;      /* borders */
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  /* keep content clear of phone notches / home bars */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left);
+}
+
+.topbar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--line);
+}
+.topbar h1 { margin: 0; font-size: 18px; font-weight: 600; }
+.tag { font-size: 11px; color: var(--muted); font-weight: 400; margin-left: 4px; }
+.version { font-size: 12px; color: var(--muted); }
+
+/* The panorama area takes most of the screen height */
+.stage {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 40vh;
+}
+#panorama {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  touch-action: none; /* later: we handle drag ourselves instead of page scrolling */
+}
+.placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 16px;
+  color: var(--muted);
+}
+.placeholder .big { font-size: 20px; color: var(--ink); margin: 0 0 6px; }
+.placeholder p { margin: 0; }
+
+.checks {
+  padding: 10px 16px;
+  border-top: 1px solid var(--line);
+  background: var(--panel);
+}
+.checks h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin: 0 0 6px; }
+.checks ul { list-style: none; margin: 0; padding: 0; }
+.checks li { padding: 3px 0; display: flex; gap: 8px; }
+.checks .ok { color: var(--ok); }
+.checks .bad { color: var(--bad); }
+.checks .note { color: var(--muted); font-size: 13px; }
+
+.attribution {
+  padding: 6px 16px calc(6px + env(safe-area-inset-bottom));
+  font-size: 11px;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+}
+.attribution a { color: var(--ink); }

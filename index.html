@@ -1,0 +1,41 @@
+<!doctype html>
+<!--
+  index.html — the single page of the app.
+  Everything visible is created here or filled in by src/main.ts.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- viewport-fit=cover lets the app use the full phone screen, including notches -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0f1720" />
+    <link rel="icon" type="image/svg+xml" href="./icon.svg" />
+    <title>PeakFinder</title>
+  </head>
+  <body>
+    <header class="topbar">
+      <h1>PeakFinder <span class="tag">prototype</span></h1>
+      <span id="version" class="version"></span>
+    </header>
+
+    <!-- The panorama will be drawn on this canvas starting in M2 -->
+    <main class="stage">
+      <canvas id="panorama" aria-label="Mountain skyline panorama"></canvas>
+      <div id="placeholder" class="placeholder">
+        <p class="big">Skyline coming in M2</p>
+        <p>If you can read this on your phone, the deploy works.</p>
+      </div>
+    </main>
+
+    <!-- Quick checks: shows whether this phone/browser supports what we need -->
+    <section class="checks" aria-label="Device checks">
+      <h2>Device checks</h2>
+      <ul id="checks"></ul>
+    </section>
+
+    <!-- Data attribution — must always stay visible (filled by src/ui/attribution.ts) -->
+    <footer id="attribution" class="attribution"></footer>
+
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>
