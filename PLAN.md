@@ -9,12 +9,12 @@ real mountains.
 
 | Milestone | Status | Notes |
 |---|---|---|
-| M1 — Project setup + GitHub Pages deploy (placeholder page) | 🟡 In progress | Code done; waiting on first deploy |
+| M1 — Project setup + GitHub Pages deploy (placeholder page) | 🟡 Awaiting phone test | Deployed 2026-10-09 |
 | M2 — Skyline rendering from the test location (no compass) | ⬜ Not started | |
 | M3 — Peak labels with visibility checks | ⬜ Not started | |
 | M4 — GPS, compass mode, drag and offset correction | ⬜ Not started | |
 
-Live site (once deployed): https://nightskyfinder-app.github.io/peakfinder/
+Live site: https://nightskyfinder-app.github.io/peakfinder/
 Repository: https://github.com/nightskyfinder-app/peakfinder
 
 **Workflow:** stop after each milestone, list what to test, wait for feedback.
@@ -93,3 +93,4 @@ modular (data / terrain / render / sensors / ui folders) so these can be added l
 ## Change log
 
 - 2026-10-09 — Plan written; M1 started.
+- 2026-10-09 — M1 deployed to GitHub Pages (first Actions run succeeded). Waiting for phone test.
